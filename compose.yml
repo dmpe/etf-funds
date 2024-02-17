@@ -1,0 +1,21 @@
+services:
+  rstudio:
+    image: rocker/tidyverse:latest
+    ports:
+      - "8787:8787"
+    environment:
+      ROOT: true
+      DISABLE_AUTH: true
+    volumes:
+      - ./.rstudio_config:/home/rstudio/.config/rstudio
+      - .:/home/rstudio/workspace
+  jupyter:
+    image: jupyter/scipy-notebook:latest
+    user: root
+    ports:
+      - "8888:8888"
+    environment:
+      GRANT_SUDO: true
+    volumes:
+      - ./.rstudio_config:/home/jovyan/work
+      - .:/home/jovyan/work
